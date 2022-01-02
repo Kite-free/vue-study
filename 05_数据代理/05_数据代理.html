@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据代理</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>学校名称：{{name}}</h1>
+        <h1>学校地址：{{address}}</h1>
+    </div>
+    <script>
+        // function getVariablesName(v){
+        //     let obj = {v:""}
+        //     return Object.keys(obj)[0]
+        // }
+        let person = {
+            name:"张三",
+            sex:"男"
+        }
+        person.age = 18
+        let hobby = "game"
+        Object.defineProperty(person,"hobby",{
+            // value:"game",
+            // enumerable:true,  //控制属性值是否能被枚举，默认值是false，不可以枚举
+            // writable:true,    //控制属性值是否能被修改，默认值是false，不可以修改
+            // configurable:true, //控制属性值是否能被删除，默认值是false，不可以删除
+
+            //当有人读取person的hobby属性时，get函数getter就会被调用，并且返回值就是hobby的值
+            get(){
+                console.log("获取值为："+hobby)
+                return hobby
+            },
+            //当有人修改person的hobby属性时，set函数setter就会被调用，而且会收到修改的具体值
+            set(value){
+                console.log("修改值为："+value) 
+                hobby = value //将要该的值传给属性绑定的值
+            }
+
+        })
+        Vue.config.productionTip = false //设置为 false 以阻止 vue 在启动时生成生产提示
+        const vm = new Vue({
+            el:'#root',
+            data:{
+                name:"武汉大学",
+                address:"武汉市"
+            }
+        })
+        //实现数据代理 obj1中的属性代理obj2中的属性x obj2有这个属性x 并且支持读取和修改
+        let obj1 = {x:300}
+        let obj2 = {y:150}
+        Object.defineProperty(obj2,"x",{
+            get(){
+                return obj1.x
+            },
+            set(value){
+                obj1.x = value
+            }
+        })
+    </script> 
+</body>
+</html>

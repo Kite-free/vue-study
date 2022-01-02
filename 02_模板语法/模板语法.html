@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>初识Vue</title>
+    <title>模板语法</title>
     <script src="../lib/vue.js"></script>
 </head>
 <body>
     <div id="root">
-        <h1>Hello,{{name.length}},{{address}}</h1>
+        <h1>hello,{{name}}</h1>
+    <hr/>
+    <a v-bind:href="url">百度一下</a>
+    <a :href="url">百度两下</a>
     </div>
     <script>
         Vue.config.productionTip = false //设置为 false 以阻止 vue 在启动时生成生产提示
         new Vue({
             el:'#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符串
             data:{
-                name:"朱争",
-                address:"北京"
+                name:"jack",
+                url:"http://baidu.com"
             }
         })
     </script> 
